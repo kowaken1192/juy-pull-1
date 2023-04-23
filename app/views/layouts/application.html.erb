@@ -11,7 +11,21 @@
   </head>
 
   <body>
- 
-    <%= yield %>
+<h1>ログインアプリ</h1>
+
+<% if user_signed_in? %>
+  <!-- ユーザーがログインしていた時の処理 -->
+  <h4> 名前 <%= current_user.name %> </h4>
+  <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+  <%= link_to "アカウント情報", account_path, class: 'post' %>
+  <%= link_to "プロフィール", user_path(current_user), class: 'post' %>
+<% else %>
+  <!-- ユーザーがログインしていなかった時の処理 -->
+  <h2> 現在ログインしていません </h2>
+  <%= link_to "ログイン", new_user_session_path, class: 'post' %>
+  <%= link_to "新規登録", new_user_registration_path, class: 'post' %>
+<% end %>
+
+<%= yield %>
   </body>
 </html>
